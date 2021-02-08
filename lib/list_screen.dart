@@ -94,6 +94,50 @@ class _ListScreenState extends State<ListScreen> {
     },
   ];
 
+  Widget _buildList(MediaQueryData mediaQuery) {
+    return Container(
+      height: mediaQuery.size.height * 0.7,
+      child: ListView.builder(
+        itemBuilder: (context, index) {
+          return Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    cityDistance[index]['origin'],
+                  ),
+                  Text(
+                    cityDistance[index]['destination'],
+                  ),
+                  Text(
+                    cityDistance[index]['distance'].toString() + ' km',
+                  ),
+                  IconButton(
+                    icon: Icon(Icons.map),
+                    onPressed: () {
+                      Navigator.of(context).pushNamed(
+                        MapScreen.routeName,
+                        arguments: {
+                          'origLat': cityDistance[index]['origLat'],
+                          'origLng': cityDistance[index]['origLng'],
+                          'destLat': cityDistance[index]['destLat'],
+                          'destLng': cityDistance[index]['destLng'],
+                        },
+                      );
+                    },
+                  ),
+                ],
+              ),
+              Divider()
+            ],
+          );
+        },
+        itemCount: cityDistance.length,
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final MediaQueryData mediaQuery = MediaQuery.of(context);
@@ -132,57 +176,10 @@ class _ListScreenState extends State<ListScreen> {
               height: 20,
             ),
             Container(
-              // height: 300,
               child: Column(
                 children: [
                   RowHeadings(),
-                  Container(
-                    height: mediaQuery.size.height * 0.7,
-                    child: ListView.builder(
-                      // shrinkWrap: true,
-                      itemBuilder: (context, index) {
-                        return Column(
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  cityDistance[index]['origin'],
-                                ),
-                                Text(
-                                  cityDistance[index]['destination'],
-                                ),
-                                Text(
-                                  cityDistance[index]['distance'].toString() +
-                                      ' km',
-                                ),
-                                IconButton(
-                                  icon: Icon(Icons.map),
-                                  onPressed: () {
-                                    Navigator.of(context).pushNamed(
-                                      MapScreen.routeName,
-                                      arguments: {
-                                        'origLat': cityDistance[index]
-                                            ['origLat'],
-                                        'origLng': cityDistance[index]
-                                            ['origLng'],
-                                        'destLat': cityDistance[index]
-                                            ['destLat'],
-                                        'destLng': cityDistance[index]
-                                            ['destLng'],
-                                      },
-                                    );
-                                  },
-                                ),
-                              ],
-                            ),
-                            Divider()
-                          ],
-                        );
-                      },
-                      itemCount: cityDistance.length,
-                    ),
-                  ),
+                  _buildList(mediaQuery),
                 ],
               ),
             ),
