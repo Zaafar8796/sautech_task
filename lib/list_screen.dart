@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import './widget/row_headings.dart';
+
 import './map_screen.dart';
 
 class ListScreen extends StatefulWidget {
@@ -133,35 +135,7 @@ class _ListScreenState extends State<ListScreen> {
               // height: 300,
               child: Column(
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Origin',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      Text(
-                        'Destination',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      Text(
-                        'Distance',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      Text(
-                        'Route',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
-                  ),
+                  RowHeadings(),
                   Container(
                     height: mediaQuery.size.height * 0.7,
                     child: ListView.builder(
